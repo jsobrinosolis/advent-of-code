@@ -1,8 +1,8 @@
 # Día 1
 # Puzle 1
-def read_dataset():
-    depths = open("data_day1.txt", "r").readlines()
-    return depths
+def read_dataset(file):
+    data = open(file, "r").readlines()
+    return data
 
 
 def count_increases_in_depth(depths):
@@ -28,9 +28,40 @@ def count_in_windows(depths):
     return increase
 
 
-test_depths = [199, 200, 208, 210, 200, 207, 240, 269, 260, 263]
+# Día 2
+# Puzle 1
+def calculate_position(moves):
+    horizontal = 0
+    depth = 0
+    for move in moves:
+        move.splitlines()
+        if move[0] is "f":
+            horizontal += int(move[8])
+        if move[0] is "u":
+            depth -= int(move[3])
+        if move[0] is "d":
+            depth += int(move[5])
+    return horizontal*depth
+
+
+# Puzle 2
+def calculate_position_with_aim(moves):
+    aim = 0
+    horizontal = 0
+    depth = 0
+    for move in moves:
+        move.splitlines()
+        if move[0] is "f":
+            horizontal += int(move[8])
+            depth += aim * int(move[8])
+        if move[0] is "u":
+            aim -= int(move[3])
+        if move[0] is "d":
+            aim += int(move[5])
+    return horizontal*depth
+
 
 if __name__ == '__main__':
-    depths = read_dataset()
-    print(count_increases_in_depth(depths))
-    print(count_in_windows(depths))
+    moves = read_dataset("data_day2.txt")
+    print(calculate_position(moves))
+    print(calculate_position_with_aim(moves))
